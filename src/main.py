@@ -256,7 +256,7 @@ class DatasetProcessor:
                 # Default labels if no toxicity column
                 labels = [0] * len(batch[text_column])
             
-            THR = 0.5  # 例：しきい値
+            THR = 0.5
             groups_list = []
 
             for i in range(len(labels)):
@@ -509,8 +509,6 @@ class TrainingManager:
         base_state = {k: v.clone().cpu() for k, v in model.state_dict().items()}
         
         # Get unique groups from the training data
-        # フラット化: 各サンプルが list[str] または str を取り得る
-        # set comprehension で重複排除しつつユニークなグループ一覧を取得
         unique_groups = sorted({
             g for item in train_ds['group']
             for g in (item if isinstance(item, list) else [item])
@@ -530,7 +528,6 @@ class TrainingManager:
             print(f"\n--- Training for group: {group} ---")
             
             # Filter dataset for the current group
-            # グループ列が str でも list[str] でもヒットさせる
             group_train_ds = train_ds.filter(
                 lambda example, grp=group: (grp in example['group']) if isinstance(example['group'], list) else (example['group'] == grp),
                 load_from_cache_file=False
@@ -626,8 +623,6 @@ class FairnessEvaluator:
     @staticmethod
     def compute_group_metrics(y_true: List[int], y_pred: List[int], groups: List[str]) -> Dict[str, Dict[str, float]]:
         """Compute per-group classification metrics."""
-        # フラット化: 各サンプルが list[str] または str を取り得る
-        # set comprehension で重複排除しつつユニークなグループ一覧を取得
         unique_groups = sorted({
             g for item in groups
             for g in (item if isinstance(item, list) else [item])
@@ -639,7 +634,6 @@ class FairnessEvaluator:
             if group == "no_group_mentioned":
                 continue
 
-            # 複数グループ対応: サンプルの group が list の場合は membership テスト
             group_indices = [
                 i for i, gs in enumerate(groups)
                 if (group in gs if isinstance(gs, list) else gs == group)
