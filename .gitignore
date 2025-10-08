@@ -2,10 +2,12 @@
 __pycache__/
 *.py[codz]
 *$py.class
-
+.DS_Store
 # C extensions
 *.so
 
+cache
+fairness_results
 # Distribution / packaging
 .Python
 build/
@@ -205,3 +207,102 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# CI/CD related files and folders
+.github/
+.gitlab-ci.yml
+.travis.yml
+.circleci/
+azure-pipelines.yml
+Jenkinsfile
+ci_data/
+test_ci_data/
+*ci_data*
+ci_*
+*_ci_*
+ci/
+ci_*
+*.ci
+ci_data_*
+ci_data/
+test_ci_data/
+
+# Experiment results and model outputs
+models_saved/
+runs/
+fairness_results/
+fairness_experiments.tar.gz
+cache/
+wandb/
+
+# Temporary and debug files
+*.tmp
+*.temp
+*_temp*
+*_tmp*
+debug*
+*debug*
+test_*
+*_test*
+*test*
+backup*
+*backup*
+*_backup*
+old*
+*_old*
+*old*
+archive*
+*_archive*
+*archive*
+
+# Setup and deployment scripts (temporary)
+setup_vm.sh
+upload_to_vm.sh
+colab_setup.py
+COLAB_GPU_SETUP.md
+sync_wandb.sh
+smart_check_wandb.py
+
+# Analysis and temporary experiment files
+*_analysis.py
+*analysis*
+analyze_*
+*_bootstrap*
+bootstrap_*
+*_cis*
+cis_*
+*_ci_*
+*_smart*
+smart_*
+*_quick*
+quick_*
+*_enhanced*
+enhanced_*
+*_remaining*
+remaining_*
+*_small*
+small_*
+*_local*
+local_*
+*_retrospective*
+retrospective_*
+*_vector*
+vector_*
+
+# Checkpoint and model files
+checkpoint-*/
+*.safetensors
+*.bin
+*.pt
+*.pth
+vocab.txt
+tokenizer.json
+merges.txt
+config.json
+training_args.bin
+trainer_state.json
+optimizer.pt
+scheduler.pt
+rng_state.pth
+special_tokens_map.json
+tokenizer_config.json
